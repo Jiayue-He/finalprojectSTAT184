@@ -3,7 +3,18 @@ title: "Final Project"
 author: Jiayue He & Xuefei Wang
 output: html_notebook
 ---
+```{r}
+install.packages("mosaic")
+library(mosaic)
+library(DataComputing)
+library(tidyverse)
+library(mosaicData)
+```
+
+
 
 ```{r}
-Videos <- mosaic::read.file("http://tiny.cc/dcf/CAvideos.csv")
+
+Videos <- read.csv("CAvideos.csv")
+View(Videos)   
 ```

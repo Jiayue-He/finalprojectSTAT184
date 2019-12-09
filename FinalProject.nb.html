@@ -230,22 +230,107 @@ summary {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiV2FybmluZzogY2xvc2luZyB1bnVzZWQgY29ubmVjdGlvbiAzIChodHRwOi8vdGlueS5jYy9kY2YvQ0F2aWRlb3MuY3N2KVxuIn0= -->
-<pre><code>Warning: closing unused connection 3 (http://tiny.cc/dcf/CAvideos.csv)</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVmlkZW9zIDwtIG1vc2FpYzo6cmVhZC5maWxlKFwiaHR0cDovL3RpbnkuY2MvZGNmL0NBdmlkZW9zLmNzdlwiKVxuYGBgIn0= -->
-<pre class="r"><code>Videos &lt;- mosaic::read.file(&quot;http://tiny.cc/dcf/CAvideos.csv&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5zdGFsbC5wYWNrYWdlcyhcIm1vc2FpY1wiKVxuYGBgIn0= -->
+<pre class="r"><code>install.packages(&quot;mosaic&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVGhpcyB2ZXJzaW9uIG9mIFNoaW55IGlzIGRlc2lnbmVkIHRvIHdvcmsgd2l0aCAnaHRtbHdpZGdldHMnID49IDEuNS5cbiAgICBQbGVhc2UgdXBncmFkZSB2aWEgaW5zdGFsbC5wYWNrYWdlcygnaHRtbHdpZGdldHMnKS5cblJlYWRpbmcgZGF0YSB3aXRoIHJlYWQuY3N2KClcbmNhbm5vdCBvcGVuIFVSTCAnaHR0cDovL3d3dy5tb3NhaWMtd2ViLm9yZy9nby9kYXRhc2V0cy9EQ0YvQ0F2aWRlb3MuY3N2JzogSFRUUCBzdGF0dXMgd2FzICc0MDQgTm90IEZvdW5kJ0Vycm9yIGluIGZpbGUoZmlsZSwgXCJydFwiKSA6IFxuICBjYW5ub3Qgb3BlbiB0aGUgY29ubmVjdGlvbiB0byAnaHR0cDovL3RpbnkuY2MvZGNmL0NBdmlkZW9zLmNzdidcbiJ9 -->
-<pre><code>This version of Shiny is designed to work with 'htmlwidgets' &gt;= 1.5.
-    Please upgrade via install.packages('htmlwidgets').
-Reading data with read.csv()
-cannot open URL 'http://www.mosaic-web.org/go/datasets/DCF/CAvideos.csv': HTTP status was '404 Not Found'Error in file(file, &quot;rt&quot;) : 
-  cannot open the connection to 'http://tiny.cc/dcf/CAvideos.csv'</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gaW5zdGFsbC5wYWNrYWdlcyA6IFVwZGF0aW5nIGxvYWRlZCBwYWNrYWdlc1xuIn0= -->
+<pre><code>Error in install.packages : Updating loaded packages</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShtb3NhaWMpXG5gYGAifQ== -->
+<pre class="r"><code>library(mosaic)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBkcGx5clxuXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYZHBseXLigJlcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOnN0YXRz4oCZOlxuXG4gICAgZmlsdGVyLCBsYWdcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOmJhc2XigJk6XG5cbiAgICBpbnRlcnNlY3QsIHNldGRpZmYsIHNldGVxdWFsLCB1bmlvblxuXG5Mb2FkaW5nIHJlcXVpcmVkIHBhY2thZ2U6IGxhdHRpY2VcbkxvYWRpbmcgcmVxdWlyZWQgcGFja2FnZTogZ2dmb3JtdWxhXG5Mb2FkaW5nIHJlcXVpcmVkIHBhY2thZ2U6IGdncGxvdDJcbkxvYWRpbmcgcmVxdWlyZWQgcGFja2FnZTogZ2dzdGFuY2VcblxuQXR0YWNoaW5nIHBhY2thZ2U6IOKAmGdnc3RhbmNl4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0cyBhcmUgbWFza2VkIGZyb20g4oCYcGFja2FnZTpnZ3Bsb3Qy4oCZOlxuXG4gICAgZ2VvbV9lcnJvcmJhcmgsIEdlb21FcnJvcmJhcmhcblxuXG5OZXcgdG8gZ2dmb3JtdWxhPyAgVHJ5IHRoZSB0dXRvcmlhbHM6IFxuXHRsZWFybnI6OnJ1bl90dXRvcmlhbChcImludHJvZHVjdGlvblwiLCBwYWNrYWdlID0gXCJnZ2Zvcm11bGFcIilcblx0bGVhcm5yOjpydW5fdHV0b3JpYWwoXCJyZWZpbmluZ1wiLCBwYWNrYWdlID0gXCJnZ2Zvcm11bGFcIilcbkxvYWRpbmcgcmVxdWlyZWQgcGFja2FnZTogbW9zYWljRGF0YVxuTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBNYXRyaXhcblxuVGhlICdtb3NhaWMnIHBhY2thZ2UgbWFza3Mgc2V2ZXJhbCBmdW5jdGlvbnMgZnJvbSBjb3JlIHBhY2thZ2VzIGluIG9yZGVyIHRvIGFkZCBcbmFkZGl0aW9uYWwgZmVhdHVyZXMuICBUaGUgb3JpZ2luYWwgYmVoYXZpb3Igb2YgdGhlc2UgZnVuY3Rpb25zIHNob3VsZCBub3QgYmUgYWZmZWN0ZWQgYnkgdGhpcy5cblxuTm90ZTogSWYgeW91IHVzZSB0aGUgTWF0cml4IHBhY2thZ2UsIGJlIHN1cmUgdG8gbG9hZCBpdCBCRUZPUkUgbG9hZGluZyBtb3NhaWMuXG5cbkF0dGFjaGluZyBwYWNrYWdlOiDigJhtb3NhaWPigJlcblxuVGhlIGZvbGxvd2luZyBvYmplY3QgaXMgbWFza2VkIGZyb20g4oCYcGFja2FnZTpNYXRyaXjigJk6XG5cbiAgICBtZWFuXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6Z2dwbG90MuKAmTpcblxuICAgIHN0YXRcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOmRwbHly4oCZOlxuXG4gICAgY291bnQsIGRvLCB0YWxseVxuXG5UaGUgZm9sbG93aW5nIG9iamVjdHMgYXJlIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6c3RhdHPigJk6XG5cbiAgICBiaW5vbS50ZXN0LCBjb3IsIGNvci50ZXN0LCBjb3YsIGZpdmVudW0sIElRUiwgbWVkaWFuLCBwcm9wLnRlc3QsIHF1YW50aWxlLCBzZCwgdC50ZXN0LCB2YXJcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOmJhc2XigJk6XG5cbiAgICBtYXgsIG1lYW4sIG1pbiwgcHJvZCwgcmFuZ2UsIHNhbXBsZSwgc3VtXG4ifQ== -->
+<pre><code>Loading required package: dplyr
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Loading required package: lattice
+Loading required package: ggformula
+Loading required package: ggplot2
+Loading required package: ggstance
+
+Attaching package: ‘ggstance’
+
+The following objects are masked from ‘package:ggplot2’:
+
+    geom_errorbarh, GeomErrorbarh
+
+
+New to ggformula?  Try the tutorials: 
+    learnr::run_tutorial(&quot;introduction&quot;, package = &quot;ggformula&quot;)
+    learnr::run_tutorial(&quot;refining&quot;, package = &quot;ggformula&quot;)
+Loading required package: mosaicData
+Loading required package: Matrix
+
+The 'mosaic' package masks several functions from core packages in order to add 
+additional features.  The original behavior of these functions should not be affected by this.
+
+Note: If you use the Matrix package, be sure to load it BEFORE loading mosaic.
+
+Attaching package: ‘mosaic’
+
+The following object is masked from ‘package:Matrix’:
+
+    mean
+
+The following object is masked from ‘package:ggplot2’:
+
+    stat
+
+The following objects are masked from ‘package:dplyr’:
+
+    count, do, tally
+
+The following objects are masked from ‘package:stats’:
+
+    binom.test, cor, cor.test, cov, fivenum, IQR, median, prop.test, quantile, sd, t.test, var
+
+The following objects are masked from ‘package:base’:
+
+    max, mean, min, prod, range, sample, sum</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShEYXRhQ29tcHV0aW5nKVxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
+<pre class="r"><code>library(DataComputing)
+library(tidyverse)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXHUwMDFiWzMwbeKUgOKUgCBcdTAwMWJbMW1BdHRhY2hpbmcgcGFja2FnZXNcdTAwMWJbMjJtIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCB0aWR5dmVyc2UgMS4yLjEg4pSA4pSAXHUwMDFiWzM5bVxuXHUwMDFiWzMwbVx1MDAxYlszMm3inJRcdTAwMWJbMzBtIFx1MDAxYlszNG10aWJibGUgXHUwMDFiWzMwbSAyLjEuMyAgICAgXHUwMDFiWzMybeKclFx1MDAxYlszMG0gXHUwMDFiWzM0bXB1cnJyICBcdTAwMWJbMzBtIDAuMy4yXG5cdTAwMWJbMzJt4pyUXHUwMDFiWzMwbSBcdTAwMWJbMzRtdGlkeXIgIFx1MDAxYlszMG0gMC44LjMgICAgIFx1MDAxYlszMm3inJRcdTAwMWJbMzBtIFx1MDAxYlszNG1zdHJpbmdyXHUwMDFiWzMwbSAxLjQuMFxuXHUwMDFiWzMybeKclFx1MDAxYlszMG0gXHUwMDFiWzM0bXJlYWRyICBcdTAwMWJbMzBtIDEuMy4xICAgICBcdTAwMWJbMzJt4pyUXHUwMDFiWzMwbSBcdTAwMWJbMzRtZm9yY2F0c1x1MDAxYlszMG0gMC4zLjBcdTAwMWJbMzltXG5cdTAwMWJbMzBt4pSA4pSAIFx1MDAxYlsxbUNvbmZsaWN0c1x1MDAxYlsyMm0g4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAIHRpZHl2ZXJzZV9jb25mbGljdHMoKSDilIDilIBcblx1MDAxYlszMW3inJZcdTAwMWJbMzBtIFx1MDAxYlszNG1tb3NhaWNcdTAwMWJbMzBtOjpcdTAwMWJbMzJtY291bnQoKVx1MDAxYlszMG0gICAgICAgICAgICBtYXNrcyBcdTAwMWJbMzRtZHBseXJcdTAwMWJbMzBtOjpjb3VudCgpXG5cdTAwMWJbMzFt4pyWXHUwMDFiWzMwbSBcdTAwMWJbMzRtcHVycnJcdTAwMWJbMzBtOjpcdTAwMWJbMzJtY3Jvc3MoKVx1MDAxYlszMG0gICAgICAgICAgICAgbWFza3MgXHUwMDFiWzM0bW1vc2FpY1x1MDAxYlszMG06OmNyb3NzKClcblx1MDAxYlszMW3inJZcdTAwMWJbMzBtIFx1MDAxYlszNG1tb3NhaWNcdTAwMWJbMzBtOjpcdTAwMWJbMzJtZG8oKVx1MDAxYlszMG0gICAgICAgICAgICAgICBtYXNrcyBcdTAwMWJbMzRtZHBseXJcdTAwMWJbMzBtOjpkbygpXG5cdTAwMWJbMzFt4pyWXHUwMDFiWzMwbSBcdTAwMWJbMzRtdGlkeXJcdTAwMWJbMzBtOjpcdTAwMWJbMzJtZXhwYW5kKClcdTAwMWJbMzBtICAgICAgICAgICAgbWFza3MgXHUwMDFiWzM0bU1hdHJpeFx1MDAxYlszMG06OmV4cGFuZCgpXG5cdTAwMWJbMzFt4pyWXHUwMDFiWzMwbSBcdTAwMWJbMzRtZHBseXJcdTAwMWJbMzBtOjpcdTAwMWJbMzJtZmlsdGVyKClcdTAwMWJbMzBtICAgICAgICAgICAgbWFza3MgXHUwMDFiWzM0bXN0YXRzXHUwMDFiWzMwbTo6ZmlsdGVyKClcblx1MDAxYlszMW3inJZcdTAwMWJbMzBtIFx1MDAxYlszNG1nZ3N0YW5jZVx1MDAxYlszMG06Olx1MDAxYlszMm1nZW9tX2Vycm9yYmFyaCgpXHUwMDFiWzMwbSBtYXNrcyBcdTAwMWJbMzRtZ2dwbG90Mlx1MDAxYlszMG06Omdlb21fZXJyb3JiYXJoKClcblx1MDAxYlszMW3inJZcdTAwMWJbMzBtIFx1MDAxYlszNG1kcGx5clx1MDAxYlszMG06Olx1MDAxYlszMm1sYWcoKVx1MDAxYlszMG0gICAgICAgICAgICAgICBtYXNrcyBcdTAwMWJbMzRtc3RhdHNcdTAwMWJbMzBtOjpsYWcoKVxuXHUwMDFiWzMxbeKcllx1MDAxYlszMG0gXHUwMDFiWzM0bW1vc2FpY1x1MDAxYlszMG06Olx1MDAxYlszMm1zdGF0KClcdTAwMWJbMzBtICAgICAgICAgICAgIG1hc2tzIFx1MDAxYlszNG1nZ3Bsb3QyXHUwMDFiWzMwbTo6c3RhdCgpXG5cdTAwMWJbMzFt4pyWXHUwMDFiWzMwbSBcdTAwMWJbMzRtbW9zYWljXHUwMDFiWzMwbTo6XHUwMDFiWzMybXRhbGx5KClcdTAwMWJbMzBtICAgICAgICAgICAgbWFza3MgXHUwMDFiWzM0bWRwbHlyXHUwMDFiWzMwbTo6dGFsbHkoKVx1MDAxYlszOW1cbiJ9 -->
+<pre><code>[30m── [1mAttaching packages[22m ──────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──[39m
+[30m[32m✔[30m [34mtibble [30m 2.1.3     [32m✔[30m [34mpurrr  [30m 0.3.2
+[32m✔[30m [34mtidyr  [30m 0.8.3     [32m✔[30m [34mstringr[30m 1.4.0
+[32m✔[30m [34mreadr  [30m 1.3.1     [32m✔[30m [34mforcats[30m 0.3.0[39m
+[30m── [1mConflicts[22m ─────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+[31m✖[30m [34mmosaic[30m::[32mcount()[30m            masks [34mdplyr[30m::count()
+[31m✖[30m [34mpurrr[30m::[32mcross()[30m             masks [34mmosaic[30m::cross()
+[31m✖[30m [34mmosaic[30m::[32mdo()[30m               masks [34mdplyr[30m::do()
+[31m✖[30m [34mtidyr[30m::[32mexpand()[30m            masks [34mMatrix[30m::expand()
+[31m✖[30m [34mdplyr[30m::[32mfilter()[30m            masks [34mstats[30m::filter()
+[31m✖[30m [34mggstance[30m::[32mgeom_errorbarh()[30m masks [34mggplot2[30m::geom_errorbarh()
+[31m✖[30m [34mdplyr[30m::[32mlag()[30m               masks [34mstats[30m::lag()
+[31m✖[30m [34mmosaic[30m::[32mstat()[30m             masks [34mggplot2[30m::stat()
+[31m✖[30m [34mmosaic[30m::[32mtally()[30m            masks [34mdplyr[30m::tally()[39m</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShtb3NhaWNEYXRhKVxuYGBgIn0= -->
+<pre class="r"><code>library(mosaicData)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVmlkZW9zIDwtIHJlYWQuY3N2KFwiQ0F2aWRlb3MuY3N2XCIpXG5WaWV3KFZpZGVvcylcbmBgYCJ9 -->
+<pre class="r"><code>Videos &lt;- read.csv(&quot;CAvideos.csv&quot;)
+View(Videos)</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRmluYWwgUHJvamVjdCIKYXV0aG9yOiBKaWF5dWUgSGUgJiBYdWVmZWkgV2FuZwpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCgpgYGB7cn0KVmlkZW9zIDwtIG1vc2FpYzo6cmVhZC5maWxlKCJodHRwOi8vdGlueS5jYy9kY2YvQ0F2aWRlb3MuY3N2IikKYGBg</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRmluYWwgUHJvamVjdCIKYXV0aG9yOiBKaWF5dWUgSGUgJiBYdWVmZWkgV2FuZwpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCmBgYHtyfQppbnN0YWxsLnBhY2thZ2VzKCJtb3NhaWMiKQpsaWJyYXJ5KG1vc2FpYykKbGlicmFyeShEYXRhQ29tcHV0aW5nKQpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShtb3NhaWNEYXRhKQpgYGAKCgoKYGBge3J9CgpWaWRlb3MgPC0gcmVhZC5jc3YoIkNBdmlkZW9zLmNzdiIpClZpZXcoVmlkZW9zKSAgIApgYGA=</div>
 
 
 
