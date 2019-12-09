@@ -14,7 +14,7 @@ library(mosaicData)
 
 
 ```{r}
-
-Videos <- read.csv("CAvideos.csv")
-View(Videos)   
+Canada <- read.csv("CAvideos.csv")
+US <- read.csv("USvideos.csv")
+GreatBritain <- read.csv(("GB.csv"))
 ```
