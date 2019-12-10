@@ -3,18 +3,67 @@ title: "Final Project"
 author: Jiayue He & Xuefei Wang
 output: html_notebook
 ---
+
+#Step 1:Download packages
 ```{r}
 library(mosaic)
 library(DataComputing)
 library(tidyverse)
 library(mosaicData)
+library(dplyr)
+library("rjson")
 ```
 
 
-
+#Step 2:Importing and preparing data
 ```{r}
 Canada <- read.csv("CAvideos.csv")
 US <- read.csv("USvideos.csv")
 GreatBritain <- read.csv(("GB.csv"))
+```
+
+#Step 3:Look at the datatable by using summary functions
+```{r}
+head(Canada)
+tail(US)
+names(GreatBritain)
+```
+
+#Step 4:Data Wrangling
+```{r}
+GreatBritain <-
+  GreatBritain %>%
+  select(title,publish_time,channel_title,category_id,publish_time,tags,views,likes,dislikes,comment_count,thumbnail_link,description)
+```
+
+```{r}
+GreatBritain %>%
+  filter(category_id == 10)
+```
+
+```{r}
 
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
