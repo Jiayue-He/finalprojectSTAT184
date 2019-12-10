@@ -1,0 +1,81 @@
+---
+title: "Data"
+output: html_notebook
+---
+
+
+#Step 1:Download packages
+```{r}
+library(mosaic)
+library(DataComputing)
+library(tidyverse)
+library(mosaicData)
+library(dplyr)
+library("rjson")
+library(lubridate)
+```
+
+
+
+#Step 2:Importing and preparing data 
+```{r}
+Canada <- read.csv("CAvideos.csv")
+US <- read.csv("USvideos.csv")
+GreatBritain <- read.csv(("GB.csv"))
+```
+
+#Step 3:Look at the datatable by using summary functions
+```{r}
+head(Canada)
+tail(US)
+names(GreatBritain)
+```
+
+
+#Step 4:Data Wrangling 
+```{r}
+Canada <-
+  Canada %>%
+  select(title,publish_time,channel_title,publish_time,tags,views,likes,dislikes,comment_count,thumbnail_link,description)
+
+US <-
+  US %>%
+  select(title,publish_time,channel_title,publish_time,tags,views,likes,dislikes,comment_count,thumbnail_link,description)
+
+GreatBritain <-
+  GreatBritain %>%
+  select(title,publish_time,channel_title,publish_time,tags,views,likes,dislikes,comment_count,thumbnail_link,description)
+```
+
+
+
+#Step 5: Clean Tables
+```{r}
+Canada <-
+  Canada %>%
+  filter(grepl("^2017-11+", publish_time, ignore.case = TRUE))
+
+US <-
+  US %>%
+  filter(grepl("^2017-11+", publish_time, ignore.case = TRUE))
+
+GreatBritain <-
+  GreatBritain %>%
+  filter(grepl("^2017-11+", publish_time, ignore.case = TRUE))
+  
+```
+
+```{r}
+View(Canada)
+View(US)
+View(GreatBritain)
+```
+
+
+
+
+
+
+
+
+
