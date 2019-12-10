@@ -8,13 +8,32 @@ library(mosaic)
 library(DataComputing)
 library(tidyverse)
 library(mosaicData)
+library(dplyr)
+library("rjson")
 ```
 
 
+```{r}
+CategoryID <- fromJSON(file = "CA_category_id.json")
+jason_data_frame <- as.data.frame(CategoryID)
+print(jason_data_frame)
+```
+
+```{r}
+jason_data_frame %>%
+  select(items.id, items.snippet.assignable)
+```
 
 ```{r}
 Canada <- read.csv("CAvideos.csv")
 US <- read.csv("USvideos.csv")
 GreatBritain <- read.csv(("GB.csv"))
 
+View(Canada)
+View(US)
+View(GreatBritain)
+```
+
+```{r}
+nrow(GreatBritain)
 ```
