@@ -12,6 +12,7 @@ library(tidyverse)
 library(mosaicData)
 library(dplyr)
 library("rjson")
+library(lubridate)
 ```
 
 
@@ -22,6 +23,33 @@ US <- read.csv("USvideos.csv")
 GreatBritain <- read.csv(("GB.csv"))
 ```
 
+```{r}
+CategoryID <- fromJSON(file = "CA_category_id.json")
+list <- CategoryID[["items"]]
+items <- length(list)
+ids <- numeric(items)
+for(i in seq_along(list)){
+  ids[i] <- CategoryID[["items"]][[i]][[3]]
+}
+
+names <- character(items)
+for(i in seq_along(list)){
+  names[i] <- CategoryID[["items"]][[i]][[4]][[2]]
+}
+
+names <- c('Film & Animation', 'Autos & Vehicles', 'Music', 'Pets & Animals', 'Sports', 
+           'Short Movies', 'Travel & Events', 'Gaming', 'Videoblogging', 'People & Blogs', 
+           'Comedy', 'Entertainment', 'News & Politics', 'Howto & Style', 'Education', 
+           'Science & Technology', 'Nonprofits & Activism', 'Movies', 'Anime/Animation', 
+           'Action/Adventure', 'Classics', 'Comedy2', 'Documentary', 'Drama', 'Family', 
+           'Foreign', 'Horror', 'Sci-Fi/Fantasy', 'Thriller', 'Shorts', 'Shows')
+
+Canada$categories <- factor(Canada$category_id, levels = ids, labels = names)
+US$categories <- factor(US$category_id, levels = ids, labels = names)
+GreatBritain$categories <- factor(GreatBritain$category_id, levels = ids, labels = names)
+```
+
+
 #Step 3:Look at the datatable by using summary functions
 ```{r}
 head(Canada)
@@ -31,33 +59,40 @@ names(GreatBritain)
 
 #Step 4:Data Wrangling
 ```{r}
+Canada <-
+  Canada %>%
+  select(title,publish_time,channel_title,publish_time,tags,views,likes,dislikes,comment_count,thumbnail_link,description,categories)
+
+US <-
+  US %>%
+  select(title,publish_time,channel_title,publish_time,tags,views,likes,dislikes,comment_count,thumbnail_link,description,categories)
+
 GreatBritain <-
   GreatBritain %>%
-  select(title,publish_time,channel_title,category_id,publish_time,tags,views,likes,dislikes,comment_count,thumbnail_link,description)
+  select(title,publish_time,channel_title,publish_time,tags,views,likes,dislikes,comment_count,thumbnail_link,description,categories)
 ```
+
 
 ```{r}
-GreatBritain %>%
-  filter(category_id == 10)
+View(Canada)
+View(US)
+View(GreatBritain)
 ```
 
+#Step 5: Clean Tables
 ```{r}
+Canada <- #filter NA
+  Canada %>%
+  filter(categories != " ")
 
+US <-
+  US %>%
+  filter(categories != " ")
+
+GreatBritain <-
+  GreatBritain %>%
+  filter(categories != " ")
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
