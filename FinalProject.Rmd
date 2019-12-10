@@ -57,7 +57,7 @@ tail(US)
 names(GreatBritain)
 ```
 
-#Step 4:Data Wrangling
+#Step 4:Data Wrangling 
 ```{r}
 Canada <-
   Canada %>%
