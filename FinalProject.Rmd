@@ -16,7 +16,7 @@ library(lubridate)
 ```
 
 
-#Step 2:Importing and preparing data
+#Step 2:Importing and preparing data 
 ```{r}
 Canada <- read.csv("CAvideos.csv")
 US <- read.csv("USvideos.csv")
