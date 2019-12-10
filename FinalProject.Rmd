@@ -19,10 +19,7 @@ jason_data_frame <- as.data.frame(CategoryID)
 print(jason_data_frame)
 ```
 
-```{r}
-jason_data_frame %>%
-  select(items.id, items.snippet.assignable)
-```
+``
 
 ```{r}
 Canada <- read.csv("CAvideos.csv")
