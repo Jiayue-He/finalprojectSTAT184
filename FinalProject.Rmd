@@ -167,7 +167,7 @@ USD %>%
   geom_bar(stat = "identity") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
   labs(y = "views in k")
-```
+``` 
 
 
 
