@@ -94,7 +94,7 @@ Canada <-
   filter(grepl("^2017-11+", publish_time, ignore.case = TRUE))
 
 US <-
-  US %>%
+  US %>% 
   filter(grepl("^2017-11+", publish_time, ignore.case = TRUE))
 
 GreatBritain <-
