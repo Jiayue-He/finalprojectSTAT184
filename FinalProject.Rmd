@@ -144,10 +144,6 @@ USC <-
 ```
 
 
-
-
-
-
 #Step 7: Visualization
 ```{r}
 USC %>%
