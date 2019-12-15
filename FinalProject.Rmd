@@ -118,10 +118,10 @@ GreatBritain <-
   select(title, publish_time, channel_title, categories, publish_time, tags, views, likes, dislikes, comment_count, thumbnail_link, description)
 ```
 
-
-
+ 
+ 
 ```{r}
-View(Canada)
+View(Canada) 
 View(US)
 View(GreatBritain)
 ```
