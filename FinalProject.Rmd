@@ -5,7 +5,7 @@ output: html_notebook
 ---
 
 #Step 1:Download packages
-```{r} 
+```{r}  
 library(mosaic)
 library(DataComputing)
 library(tidyverse)
