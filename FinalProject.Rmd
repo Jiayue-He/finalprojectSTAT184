@@ -1,13 +1,15 @@
 ---
 title: "Final Project"
 author: Jiayue He & Xuefei Wang
+date: 12-16-2019
 output: html_notebook
 ---
 
-#Step 1:Load packages
+#Step 1: Load Packages
 ```{r}  
 rm(list = ls())
 ```
+
 ```{r}
 library(mosaic)
 library(DataComputing)
@@ -18,14 +20,15 @@ library("rjson")
 library(ggplot2)
 library(lubridate)
 library(party)
-
 ```
 
 
-#Step 2:Importing and preparing data 
+#Step 2: Importing and Preparing data 
 ```{r}
-Canada <- read.csv("CAvideos.csv")
 US <- read.csv("USvideos.csv")
+
+Canada <- read.csv("CAvideos.csv")
+
 GreatBritain <- read.csv("GB.csv")
 ```
 
@@ -34,21 +37,24 @@ CategoryID <- fromJSON(file = "CA_category_id.json")
 list <- CategoryID[["items"]]
 items <- length(list)
 ids <- numeric(items)
+
 for(i in 1 : 31) {
   ids[i] <- CategoryID[["items"]][[i]][[3]]
 }
 
-names <- character(items)
+names <- character(items) 
+
 for(i in 1 : 31) {
   names[i] <- CategoryID[["items"]][[i]][[4]][[2]]
 }
 
-names <- c('Film & Animation', 'Autos & Vehicles', 'Music', 'Pets & Animals', 'Sports', 
-           'Short Movies', 'Travel & Events', 'Gaming', 'Videoblogging', 'People & Blogs', 
-           'Comedy', 'Entertainment', 'News & Politics', 'How to & Style', 'Education', 
-           'Science & Technology', 'Nonprofits & Activism', 'Movies', 'Anime/Animation', 
-           'Action/Adventure', 'Classics', 'Comedy2', 'Documentary', 'Drama', 'Family', 
-           'Foreign', 'Horror', 'Sci-Fi/Fantasy', 'Thriller', 'Shorts', 'Shows')
+names <- c('Film & Animation', 'Autos & Vehicles', 'Music', 'Pets & Animals',  
+           'Sports', 'Short Movies', 'Travel & Events', 'Gaming', 'Videoblogging',
+           'People & Blogs', 'Comedy', 'Entertainment', 'News & Politics', 
+           'How to & Style', 'Education', 'Science & Technology', 
+           'Nonprofits & Activism', 'Movies', 'Anime/Animation', 'Action/Adventure', 
+           'Classics', 'Comedy2', 'Documentary', 'Drama', 'Family', 'Foreign', 
+           'Horror', 'Sci-Fi/Fantasy', 'Thriller', 'Shorts', 'Shows')
 
 Canada$categories <- factor(Canada$category_id, levels = ids, labels = names)
 US$categories <- factor(US$category_id, levels = ids, labels = names)
@@ -56,23 +62,22 @@ GreatBritain$categories <- factor(GreatBritain$category_id, levels = ids, labels
 ```
 
 
-#Step 3:Look at the datatable by using summary functions
+#Step 3: Explore Data Tables by Using Summary Functions
 ```{r}
-head(Canada)
-tail(US)
+head(US)
+tail(Canada)
 names(GreatBritain)
 ```
 
 
-
 #Step 4: Clean Tables
 ```{r}
-Canada <- #filter NA
-  Canada %>%
-  filter(categories != " ")
-
 US <-
   US %>%
+  filter(categories != " ")
+
+Canada <- 
+  Canada %>%
   filter(categories != " ")
 
 GreatBritain <-
@@ -81,63 +86,65 @@ GreatBritain <-
 ```
 
 ```{r}
-Canada <-
-  Canada %>%
-  filter(grepl("^2017-11+", publish_time, ignore.case = TRUE))
-
 US <-
   US %>% 
   filter(grepl("^2017-11+", publish_time, ignore.case = TRUE))
 
+Canada <-
+  Canada %>%
+  filter(grepl("^2017-11+", publish_time, ignore.case = TRUE))
+
 GreatBritain <-
   GreatBritain %>%
   filter(grepl("^2017-11+", publish_time, ignore.case = TRUE))
-
 ```
 
-
 ```{r}
-Canada <-
-  Canada %>%
-  mutate(publish_time = as.POSIXct(Canada$publish_time))
 US <-
   US %>%
   mutate(publish_time = as.POSIXct(US$publish_time))
+
+Canada <-
+  Canada %>%
+  mutate(publish_time = as.POSIXct(Canada$publish_time))
+
 GreatBritain <-
   GreatBritain %>%
   mutate(publish_time = as.POSIXct(GreatBritain$publish_time))
 ```
 
 
-#Step 5:Data Wrangling 
+#Step 5: Data Wrangling 
 ```{r}
-Canada <-
-  Canada %>%
-  select(title, publish_time, channel_title, categories, publish_time, tags, views, likes, dislikes, comment_count, thumbnail_link, description)
-
 US <-
   US %>%
-  select(title, publish_time, channel_title, categories, publish_time, tags, views, likes, dislikes, comment_count, thumbnail_link, description)
+  select(title, publish_time, channel_title, categories, publish_time, tags, 
+         views, likes, dislikes, comment_count, thumbnail_link, description)
+
+Canada <-
+  Canada %>%
+  select(title, publish_time, channel_title, categories, publish_time, tags, 
+         views, likes, dislikes, comment_count, thumbnail_link, description)
 
 GreatBritain <-
   GreatBritain %>%
-  select(title, publish_time, channel_title, categories, publish_time, tags, views, likes, dislikes, comment_count, thumbnail_link, description)
+  select(title, publish_time, channel_title, categories, publish_time, tags, 
+         views, likes, dislikes, comment_count, thumbnail_link, description)
 ```
 
- 
- 
 ```{r}
-View(Canada) 
 View(US)
+View(Canada) 
 View(GreatBritain)
 ```
 
-#Step 6: Visualization
 
+#Step 6: Visualization
+## US
 ```{r}
 US1 <-
   US %>%
-  mutate(view = views/1000)
+  mutate(view = views / 1000)
 ```
 
 ```{r}
@@ -145,7 +152,7 @@ US1 %>%
   ggplot(aes(x = reorder(categories, -view), y = view, fill = categories)) +
   geom_bar(stat = "identity") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
-  labs(y = "views in k", x = "category")
+  labs(y = "views in K", x = "Category", title = "The Distrubution of Category in US")
 ```
 
 ```{r}
@@ -160,29 +167,29 @@ US1 %>%
   ggplot() +
   geom_bar(aes(x = categories, y = view, fill = categories), stat = "identity") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
-  labs(y = "views in k", x = "category")
+  labs(y = "Views in K", x = "Category", title = "The Distrubution of Category in US")
 ```  
 
-
+## Canada
 ```{r}
 Canada1 <-
   Canada %>%
   filter(categories != "Music") %>%
   filter(categories != "Entertainment") %>%
-  mutate(view = views/1000)
+  mutate(view = views / 1000)
 ```
-
 
 ```{r}
 Canada1 %>%
-  mutate(like = likes/100) %>%
-  ggplot(aes(x=view, y=categories, color = categories, size = like)) +
+  mutate(like = likes / 100) %>%
+  ggplot(aes(x = view, y = categories, color = categories, size = like)) +
   geom_point() +
-  scale_size(range = c(.1, 10), name="like in hundred")
-  labs(x = "view in k", y = "category")
+  scale_size(range = c(1, 10), name = "Like in Hundred") +
+  theme(legend.position = "right") +
+  labs(x = "View in k", y = "Category", title = "The Distrubution of Category in Canada")
 ```
 
-
+## Great Britian
 ```{r}
 GreatBritain1 <-
   GreatBritain %>%
@@ -192,29 +199,28 @@ GreatBritain1 <-
   head(120)
 ``` 
 
-
 ```{r}
 GreatBritain1 <-
   GreatBritain1 %>%
-  mutate(view = views/1000)
+  mutate(view = views / 1000)
 ```
 
 ```{r}
 GreatBritain1 %>%
   ggplot(aes(y = view, x = categories)) +
-  geom_boxplot(aes(color = categories, fill = categories),alpha = 0.25, outlier.size = 2, outlier.colour = "black") +
+  geom_boxplot(aes(color = categories, fill = categories), alpha = 0.25, 
+               outlier.size = 2, outlier.colour = "black") +
   ylim(0, 13000) +
-  labs(x = "category", y = "view in k")+
-  theme(legend.position = "bottom") + 
+  labs(x = "Category", y = "Views in K", 
+       title = "The Distrubution of Category in Great Britain") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
 
+## All Three Countries
 ```{r}
 All0 <-
   rbind(US1, Canada1, GreatBritain1)
-```
 
-```{r}
 View(All0)
 ```
 
@@ -234,26 +240,27 @@ avgAll <-
 ```{r}
 avgAll %>%
   ggplot(aes(x = categories, y = avgview)) +
-  geom_bar(aes(color = categories, fill = categories), stat = "identity")+
-  geom_point(data =US1, aes(x= categories, y= likes)) + 
+  geom_bar(aes(color = categories, fill = categories), stat = "identity") +
+  geom_point(data = US1, aes(x = categories, y = likes)) + 
   geom_line(data = Canada1, aes(x = categories, y = likes)) +
-  ylim(0, 320000)+
-  theme(axis.text.x = element_text(angle = 30, hjust=1))
+  ylim(0, 320000) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+  labs(x = "Category", y = "AvgView in K", title = "The Distrubtuion of Average Views")
 ```
 
-##:Engagement
-
+##Engagement
 ```{r}
 All <-
   rbind(US, Canada, GreatBritain)
 ```
 
 ```{r}
-engagement<-
+engagement <-
   All %>%
   group_by(categories) %>%
-  mutate(engage = as.numeric(likes) + as.numeric(dislikes)+ as.numeric(comment_count)) %>%
-  summarise(total = sum(engage,na.rm=TRUE)) %>%
+  mutate(engage = as.numeric(likes) + as.numeric(dislikes) + 
+         as.numeric(comment_count)) %>%
+  summarise(total = sum(engage, na.rm = TRUE)) %>%
   arrange(desc(total))
 
 engagement
@@ -262,15 +269,18 @@ engagement
 ```{r}
 percentage <-
   All %>%
-  mutate(engage = as.numeric(likes) + as.numeric(dislikes)+ as.numeric(comment_count), "dislikep" = ((as.numeric(dislikes)/engage)*100), "likep" = ((as.numeric(likes)/engage)*100), "commentp" = ((as.numeric(comment_count)/engage)*100)) %>%
+  mutate(engage = as.numeric(likes) + as.numeric(dislikes) + as.numeric(comment_count), 
+         "dislikep" = ((as.numeric(dislikes) / engage) * 100), 
+         "likep" = ((as.numeric(likes) / engage) * 100), 
+         "commentp" = ((as.numeric(comment_count) / engage) * 100)) %>%
   select(publish_time, dislikep, likep, commentp) %>%
   arrange(desc(dislikep))
 ```
 
 ```{r}
 plot<-
-  percentage%>%
-  gather(key=dislikes1, value=per_engage, dislikep, likep, commentp)
+  percentage %>%
+  gather(key = dislikes1, value = per_engage, dislikep, likep, commentp)
 ```
 
 ```{r}
@@ -279,36 +289,3 @@ plot %>%
   geom_point(alpha = 0.9) +
   theme(legend.position = "none")
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
->>>>>>> 322b1f0011842d6083b9c1e10b5c6b3efd3d3338
