@@ -4,7 +4,7 @@ author: Jiayue He & Xuefei Wang
 output: html_notebook
 ---
 
-#Step 1:Download packages
+#Step 1:Load packages
 ```{r}  
 rm(list = ls())
 ```
@@ -132,27 +132,16 @@ View(US)
 View(GreatBritain)
 ```
 
-
-#Step 6:Combine all the data
-```{r}
-All <-
-  rbind(US,Canada,GreatBritain)
-```
+#Step 6: Visualization
 
 ```{r}
-view(All)
-```
-
-```{r}
-USC <-
+US <-
   US %>%
-  mutate(view = views/10000)
+  mutate(view = views/1000)
 ```
 
-
-#Step 7: Visualization
 ```{r}
-USC %>%
+US %>%
   ggplot(aes(x = reorder(categories, -view), y = view, fill = categories)) +
   geom_bar(stat = "identity") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
@@ -160,121 +149,95 @@ USC %>%
 ```
 
 ```{r}
-USD <-
-  USC%>%
-  filter(categories != "Music") 
-US %>%
-  mutate(view = views/10000) %>%
-  filter(categories != "Music")
+US1 <-
+  US %>%
+  filter(categories != "Music") %>%
+  filter(categories != "Entertainment")
 ```
+
 ```{r}
-USD %>%
+US1 %>%
   ggplot() +
   geom_bar(aes(x = reorder(categories, -view), y = view, fill = categories), stat = "identity") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
   labs(y = "views in k", x = "category")
 ```  
 
-```{r}
-All1 <-
-  All %>%
-  mutate(view = views/1000000) %>%
-  filter(categories != "Music") 
-```
 
 ```{r}
-All1 %>%
-  ggplot() +
-  geom_bar(aes(x = reorder(categories, -view), y = view, fill = categories),stat = "identity") +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
-  labs(y = "views in M")
-```
-
-```{r}
-All1 %>%
-  ggplot(aes(view, fill = categories)) +
-  geom_histogram(bins = 30) +
-  scale_x_log10() + 
-  facet_wrap(~categories,scale = 'free_y')
+Canada1 <-
+  Canada %>%
+  filter(categories != "Music") %>%
+  filter(categories != "Entertainment") %>%
+  mutate(view = views/1000)
 ```
 
 
-
-<<<<<<< HEAD
 ```{r}
+Canada1 %>%
+  mutate(like = likes/100) %>%
+  ggplot(aes(x=view, y=categories, color = categories, size = like)) +
+  geom_point() +
+  scale_size(range = c(.1, 10), name="like in hundred")
+  labs(x = "view in k", y = "category")
+```
+
+
+```{r}  
 GreatBritain <-
   GreatBritain %>%
+  filter(categories != "Music") %>%
   filter(categories != "Entertainment") %>%
-  filter(categories != "Music")
-```
-
-
-```{r}
-GreatBritain %>%
-  ggplot(aes(x=categories, y=views)) +
-  geom_line() +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))
-```
-
-
-
-
-
-
-
-
-
-
-
-=======
-
-
-```{r}
-  median(All$views, na.rm = TRUE)
-```
-```{r}
-All2 <-
-  All %>%
-  mutate(Trending = ifelse(views > 372468, "1", "0"))
-```
-
-```{r}
-Tree <-
-  All2 %>%
-  select(views,likes,dislikes,categories,comment_count, Trending) %>%
-  na.omit()
-```
-```{r}
-mod <-
-  party::ctree(data=data, Trending ~ views)
-plot(mod, type="simple")
-```
-```{r}
-Mod <-
-  All %>%
-  party::ctree(categories == "Comedy" ~ likes + dislikes + comment_count, data = All)
-```
-
-
-```{r}
-Canada %>%
-  
-  arrange(desc())
-```
-  
-```{r}  
-Canada <-
-  Canada %>%
-  mutate(like = likes/1000)
+  arrange(desc(views)) %>%
+  head(120)
 ``` 
 
+
 ```{r}
-Canada %>%
-  ggplot(aes(y = like, x = categories)) +
+GreatBritain1 <-
+  GreatBritain %>%
+  mutate(view = views/1000)
+```
+
+```{r}
+GreatBritain1 %>%
+  ggplot(aes(y = view, x = categories)) +
   geom_boxplot(aes(color = categories, fill = categories),alpha = 0.25, outlier.size = 2, outlier.colour = "black") +
+  ylim(0, 13000) +
+  labs(x = "category", y = "view in k")+
   theme(legend.position = "bottom") + 
-  theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
-  ylim(0,280)
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+```{r}
+All0 <-
+  rbind(US1, Canada1, GreatBritain1)
+```
+
+```{r}
+View(All0)
+```
+
+```{r}
+All0 <-
+  All0 %>%
+  filter(as.numeric(likes) > 100)
+```
+
+```{r}
+avgAll <-
+  All0 %>%
+  group_by(categories, view, like, dislikes, comment_count) %>%
+  summarise(avgview = mean(view, na.rm = TRUE))
+```
+
+```{r}
+avgAll %>%
+  ggplot(aes(x = categories, y = avgview)) +
+  geom_bar(aes(color = categories, fill = categories), stat = "identity")+
+  geom_point(data =US1, aes(x= categories, y= likes)) + 
+  geom_line(data = Canada1, aes(x = categories, y = likes)) +
+  ylim(0, 320000)+
+  theme(axis.text.x = element_text(angle = 30, hjust=1))
 ```
 
 
