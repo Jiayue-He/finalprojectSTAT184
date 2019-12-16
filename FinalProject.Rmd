@@ -16,6 +16,9 @@ library(mosaicData)
 library(dplyr)
 library("rjson")
 library(ggplot2)
+library(lubridate)
+library(party)
+
 ```
 
 
@@ -160,6 +163,11 @@ USC %>%
 USD <-
   USC%>%
   filter(categories != "Music") 
+US %>%
+  mutate(view = views/10000) %>%
+  filter(categories != "Music")
+```
+```{r}
 USD %>%
   ggplot() +
   geom_bar(aes(x = reorder(categories, -view), y = view, fill = categories), stat = "identity") +
@@ -167,8 +175,32 @@ USD %>%
   labs(y = "views in k", x = "category")
 ```  
 
+```{r}
+All1 <-
+  All %>%
+  mutate(view = views/1000000) %>%
+  filter(categories != "Music") 
+```
+
+```{r}
+All1 %>%
+  ggplot() +
+  geom_bar(aes(x = reorder(categories, -view), y = view, fill = categories),stat = "identity") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+  labs(y = "views in M")
+```
+
+```{r}
+All1 %>%
+  ggplot(aes(view, fill = categories)) +
+  geom_histogram(bins = 30) +
+  scale_x_log10() + 
+  facet_wrap(~categories,scale = 'free_y')
+```
 
 
+
+<<<<<<< HEAD
 ```{r}
 GreatBritain <-
   GreatBritain %>%
@@ -193,5 +225,56 @@ GreatBritain %>%
 
 
 
+
+=======
+
+
+```{r}
+  median(All$views, na.rm = TRUE)
+```
+```{r}
+All2 <-
+  All %>%
+  mutate(Trending = ifelse(views > 372468, "1", "0"))
+```
+
+```{r}
+Tree <-
+  All2 %>%
+  select(views,likes,dislikes,categories,comment_count, Trending) %>%
+  na.omit()
+```
+```{r}
+mod <-
+  party::ctree(data=data, Trending ~ views)
+plot(mod, type="simple")
+```
+```{r}
+Mod <-
+  All %>%
+  party::ctree(categories == "Comedy" ~ likes + dislikes + comment_count, data = All)
+```
+
+
+```{r}
+Canada %>%
+  
+  arrange(desc())
+```
+  
+```{r}  
+Canada <-
+  Canada %>%
+  mutate(like = likes/1000)
+``` 
+
+```{r}
+Canada %>%
+  ggplot(aes(y = like, x = categories)) +
+  geom_boxplot(aes(color = categories, fill = categories),alpha = 0.25, outlier.size = 2, outlier.colour = "black") +
+  theme(legend.position = "bottom") + 
+  theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
+  ylim(0,280)
+```
 
 
