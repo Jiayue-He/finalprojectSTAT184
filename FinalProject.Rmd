@@ -5,6 +5,9 @@ output: html_notebook
 ---
 
 #Step 1:Download packages
+```{r}  
+rm(list = ls())
+```
 ```{r}
 library(mosaic)
 library(DataComputing)
@@ -12,7 +15,7 @@ library(tidyverse)
 library(mosaicData)
 library(dplyr)
 library("rjson")
-library(lubridate)
+library(ggplot2)
 ```
 
 
@@ -28,18 +31,18 @@ CategoryID <- fromJSON(file = "CA_category_id.json")
 list <- CategoryID[["items"]]
 items <- length(list)
 ids <- numeric(items)
-for(i in seq_along(list)) {
+for(i in 1 : 31) {
   ids[i] <- CategoryID[["items"]][[i]][[3]]
 }
 
 names <- character(items)
-for(i in seq_along(list)){
+for(i in 1 : 31) {
   names[i] <- CategoryID[["items"]][[i]][[4]][[2]]
 }
 
 names <- c('Film & Animation', 'Autos & Vehicles', 'Music', 'Pets & Animals', 'Sports', 
            'Short Movies', 'Travel & Events', 'Gaming', 'Videoblogging', 'People & Blogs', 
-           'Comedy', 'Entertainment', 'News & Politics', 'Howto & Style', 'Education', 
+           'Comedy', 'Entertainment', 'News & Politics', 'How to & Style', 'Education', 
            'Science & Technology', 'Nonprofits & Activism', 'Movies', 'Anime/Animation', 
            'Action/Adventure', 'Classics', 'Comedy2', 'Documentary', 'Drama', 'Family', 
            'Foreign', 'Horror', 'Sci-Fi/Fantasy', 'Thriller', 'Shorts', 'Shows')
@@ -58,22 +61,8 @@ names(GreatBritain)
 ```
 
 
-#Step 4:Data Wrangling 
-```{r}
-Canada <-
-  Canada %>%
-  select(title, publish_time, channel_title, categories, publish_time, tags, views, likes, dislikes, comment_count, thumbnail_link, description)
 
-US <-
-  US %>%
-  select(title, publish_time, channel_title, categories, publish_time, tags, views, likes, dislikes, comment_count, thumbnail_link, description)
-
-GreatBritain <-
-  GreatBritain %>%
-  select(title, publish_time, channel_title, categories, publish_time, tags, views, likes, dislikes, comment_count, thumbnail_link, description)
-```
-
-#Step 5: Clean Tables
+#Step 4: Clean Tables
 ```{r}
 Canada <- #filter NA
   Canada %>%
@@ -100,16 +89,105 @@ US <-
 GreatBritain <-
   GreatBritain %>%
   filter(grepl("^2017-11+", publish_time, ignore.case = TRUE))
-  
+
 ```
+
+
+```{r}
+Canada <-
+  Canada %>%
+  mutate(publish_time = as.POSIXct(Canada$publish_time))
+US <-
+  US %>%
+  mutate(publish_time = as.POSIXct(US$publish_time))
+GreatBritain <-
+  GreatBritain %>%
+  mutate(publish_time = as.POSIXct(GreatBritain$publish_time))
+```
+
+
+#Step 5:Data Wrangling 
+```{r}
+Canada <-
+  Canada %>%
+  select(title, publish_time, channel_title, categories, publish_time, tags, views, likes, dislikes, comment_count, thumbnail_link, description)
+
+US <-
+  US %>%
+  select(title, publish_time, channel_title, categories, publish_time, tags, views, likes, dislikes, comment_count, thumbnail_link, description)
+
+GreatBritain <-
+  GreatBritain %>%
+  select(title, publish_time, channel_title, categories, publish_time, tags, views, likes, dislikes, comment_count, thumbnail_link, description)
+```
+
+ 
+ 
+```{r}
+View(Canada) 
+View(US)
+View(GreatBritain)
+```
+
+
+#Step 6:Combine all the data
+```{r}
+All <-
+  rbind(US,Canada,GreatBritain)
+```
+
+```{r}
+view(All)
+```
+
+```{r}
+USC <-
+  US %>%
+  mutate(view = views/10000)
+```
+
+
+#Step 7: Visualization
+```{r}
+USC %>%
+  ggplot(aes(x = reorder(categories, -view), y = view, fill = categories)) +
+  geom_bar(stat = "identity") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+  labs(y = "views in k", x = "category")
+```
+
+```{r}
+USD <-
+  USC%>%
+  filter(categories != "Music") 
+USD %>%
+  ggplot() +
+  geom_bar(aes(x = reorder(categories, -view), y = view, fill = categories), stat = "identity") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
+  labs(y = "views in k", x = "category")
+```  
 
 
 
 ```{r}
-View(Canada)
-View(US)
-View(GreatBritain)
+GreatBritain <-
+  GreatBritain %>%
+  filter(categories != "Entertainment") %>%
+  filter(categories != "Music")
 ```
+
+
+```{r}
+GreatBritain %>%
+  ggplot(aes(x=categories, y=views)) +
+  geom_line() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+
+
+
+
 
 
 
