@@ -168,78 +168,71 @@ USD %>%
   labs(y = "views in k")
 ```  
 
+
+##:Engagement
+
 ```{r}
-All1 <-
+glimpse(All)
+```
+
+```{r}
+engagement<-
   All %>%
-  mutate(view = views/1000000) %>%
-  filter(categories != "Music") 
+  group_by(categories) %>%
+  mutate(engage = as.numeric(likes) + as.numeric(dislikes)+ as.numeric(comment_count)) %>%
+  summarise(total = sum(engage,na.rm=TRUE)) %>%
+  arrange(desc(total))
+
+engagement
 ```
 
 ```{r}
-All1 %>%
-  ggplot() +
-  geom_bar(aes(x = reorder(categories, -view), y = view, fill = categories),stat = "identity") +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
-  labs(y = "views in M")
-```
-
-```{r}
-All1 %>%
-  ggplot(aes(view, fill = categories)) +
-  geom_histogram(bins = 30) +
-  scale_x_log10() + 
-  facet_wrap(~categories,scale = 'free_y')
-```
-
-
-
-
-
-```{r}
-  median(All$views, na.rm = TRUE)
-```
-```{r}
-All2 <-
+percentage <-
   All %>%
-  mutate(Trending = ifelse(views > 372468, "1", "0"))
+  mutate(engage = as.numeric(likes) + as.numeric(dislikes)+ as.numeric(comment_count), "dislikep" = ((as.numeric(dislikes)/engage)*100), "likep" = ((as.numeric(likes)/engage)*100), "commentp" = ((as.numeric(comment_count)/engage)*100)) %>%
+  select(publish_time, dislikep, likep, commentp) %>%
+  arrange(desc(dislikep))
 ```
 
 ```{r}
-Tree <-
-  All2 %>%
-  select(views,likes,dislikes,categories,comment_count, Trending) %>%
-  na.omit()
+plot<-
+  percentage%>%
+  gather(key=dislikes1, value=per_engage, dislikep, likep, commentp)
 ```
+
 ```{r}
-mod <-
-  party::ctree(data=data, Trending ~ views)
-plot(mod, type="simple")
-```
-```{r}
-Mod <-
-  All %>%
-  party::ctree(categories == "Comedy" ~ likes + dislikes + comment_count, data = All)
+plot %>%
+  ggplot(aes(publish_time, per_engage, color = dislikes1)) +
+  geom_point(alpha = 0.9) +
+  theme(legend.position = "none")
 ```
 
 
-```{r}
-Canada %>%
-  
-  arrange(desc())
-```
-  
-```{r}  
-Canada <-
-  Canada %>%
-  mutate(like = likes/1000)
-``` 
 
-```{r}
-Canada %>%
-  ggplot(aes(y = like, x = categories)) +
-  geom_boxplot(aes(color = categories, fill = categories),alpha = 0.25, outlier.size = 2, outlier.colour = "black") +
-  theme(legend.position = "bottom") + 
-  theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
-  ylim(0,280)
-```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
