@@ -6,14 +6,19 @@ output: html_notebook
 
 #Step 1:Download packages
 ```{r}  
+rm(list = ls())
+```
+```{r}
 library(mosaic)
 library(DataComputing)
 library(tidyverse)
 library(mosaicData)
 library(dplyr)
 library("rjson")
+library(ggplot2)
 library(lubridate)
 library(party)
+
 ```
 
 
@@ -81,7 +86,7 @@ Canada <-
   filter(grepl("^2017-11+", publish_time, ignore.case = TRUE))
 
 US <-
-  US %>%
+  US %>% 
   filter(grepl("^2017-11+", publish_time, ignore.case = TRUE))
 
 GreatBritain <-
@@ -151,12 +156,14 @@ USC %>%
   ggplot(aes(x = reorder(categories, -view), y = view, fill = categories)) +
   geom_bar(stat = "identity") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
-  labs(y = "views in k")
+  labs(y = "views in k", x = "category")
 ```
 
 ```{r}
 USD <-
-  US %>%
+  USC%>%
+  filter(categories != "Music") 
+US %>%
   mutate(view = views/10000) %>%
   filter(categories != "Music")
 ```
@@ -165,7 +172,7 @@ USD %>%
   ggplot() +
   geom_bar(aes(x = reorder(categories, -view), y = view, fill = categories), stat = "identity") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
-  labs(y = "views in k")
+  labs(y = "views in k", x = "category")
 ```  
 
 
@@ -173,6 +180,34 @@ USD %>%
 
 ```{r}
 glimpse(All)
+```
+
+
+
+
+```{r}
+GreatBritain <-
+  GreatBritain %>%
+  filter(categories != "Entertainment") %>%
+  filter(categories != "Music")
+```
+
+
+```{r}
+GreatBritain %>%
+  ggplot(aes(x=categories, y=views)) +
+  geom_line() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+
+
+
+
+
+
+```{r}
+  median(All$views, na.rm = TRUE)
 ```
 
 ```{r}
@@ -236,3 +271,6 @@ plot %>%
 
 
 
+
+=======
+>>>>>>> 322b1f0011842d6083b9c1e10b5c6b3efd3d3338
