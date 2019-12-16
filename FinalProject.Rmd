@@ -135,13 +135,13 @@ View(GreatBritain)
 #Step 6: Visualization
 
 ```{r}
-US <-
+US1 <-
   US %>%
   mutate(view = views/1000)
 ```
 
 ```{r}
-US %>%
+US1 %>%
   ggplot(aes(x = reorder(categories, -view), y = view, fill = categories)) +
   geom_bar(stat = "identity") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
@@ -150,7 +150,7 @@ US %>%
 
 ```{r}
 US1 <-
-  US %>%
+  US1 %>%
   filter(categories != "Music") %>%
   filter(categories != "Entertainment")
 ```
@@ -158,7 +158,7 @@ US1 <-
 ```{r}
 US1 %>%
   ggplot() +
-  geom_bar(aes(x = reorder(categories, -view), y = view, fill = categories), stat = "identity") +
+  geom_bar(aes(x = categories, y = view, fill = categories), stat = "identity") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
   labs(y = "views in k", x = "category")
 ```  
@@ -183,8 +183,8 @@ Canada1 %>%
 ```
 
 
-```{r}  
-GreatBritain <-
+```{r}
+GreatBritain1 <-
   GreatBritain %>%
   filter(categories != "Music") %>%
   filter(categories != "Entertainment") %>%
@@ -195,7 +195,7 @@ GreatBritain <-
 
 ```{r}
 GreatBritain1 <-
-  GreatBritain %>%
+  GreatBritain1 %>%
   mutate(view = views/1000)
 ```
 
@@ -208,6 +208,7 @@ GreatBritain1 %>%
   theme(legend.position = "bottom") + 
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
+
 ```{r}
 All0 <-
   rbind(US1, Canada1, GreatBritain1)
@@ -226,7 +227,7 @@ All0 <-
 ```{r}
 avgAll <-
   All0 %>%
-  group_by(categories, view, like, dislikes, comment_count) %>%
+  group_by(categories, view, likes, dislikes, comment_count) %>%
   summarise(avgview = mean(view, na.rm = TRUE))
 ```
 
@@ -240,4 +241,74 @@ avgAll %>%
   theme(axis.text.x = element_text(angle = 30, hjust=1))
 ```
 
+##:Engagement
 
+```{r}
+All <-
+  rbind(US, Canada, GreatBritain)
+```
+
+```{r}
+engagement<-
+  All %>%
+  group_by(categories) %>%
+  mutate(engage = as.numeric(likes) + as.numeric(dislikes)+ as.numeric(comment_count)) %>%
+  summarise(total = sum(engage,na.rm=TRUE)) %>%
+  arrange(desc(total))
+
+engagement
+```
+
+```{r}
+percentage <-
+  All %>%
+  mutate(engage = as.numeric(likes) + as.numeric(dislikes)+ as.numeric(comment_count), "dislikep" = ((as.numeric(dislikes)/engage)*100), "likep" = ((as.numeric(likes)/engage)*100), "commentp" = ((as.numeric(comment_count)/engage)*100)) %>%
+  select(publish_time, dislikep, likep, commentp) %>%
+  arrange(desc(dislikep))
+```
+
+```{r}
+plot<-
+  percentage%>%
+  gather(key=dislikes1, value=per_engage, dislikep, likep, commentp)
+```
+
+```{r}
+plot %>%
+  ggplot(aes(publish_time, per_engage, color = dislikes1)) +
+  geom_point(alpha = 0.9) +
+  theme(legend.position = "none")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======
+>>>>>>> 322b1f0011842d6083b9c1e10b5c6b3efd3d3338
