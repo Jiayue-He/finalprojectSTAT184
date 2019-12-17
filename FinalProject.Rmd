@@ -5,6 +5,12 @@ date: 12-16-2019
 output: html_notebook
 ---
 
+#Introduction 
+  YouTube is the most popular and most used video platform in the whole world today. Here we are going to get the trending statistics by analyzing the YouTube Trending datasets which are collected from three English-Speaking countries: the US, the UK and Canada.
+  Our research question is to explore those trending videos among those three countries. Our goal is to find what kinds of videos are the most popular in different countries, what makes them popular, what are the similarities and difference between those videos and the how do the YouTube users would like to engage in which category(like, dislike and comment).
+![](https://d1afx9quaogywf.cloudfront.net/sites/default/files/Logos/YouTube.png)
+
+
 #Step 1: Load Packages
 ```{r}  
 rm(list = ls())
@@ -61,6 +67,7 @@ US$categories <- factor(US$category_id, levels = ids, labels = names)
 GreatBritain$categories <- factor(GreatBritain$category_id, levels = ids, labels = names)
 ```
 
+  In step 2, we upload our data source which include three CSV files and one JSON file. One of the variables in CAV files are presented in number, therefore, we match the corresponding information from JSON to the data frame we create. In order to accomplish this goal, we write some lists and a for loop with help of TA. 
 
 #Step 3: Explore Data Tables by Using Summary Functions
 ```{r}
@@ -113,6 +120,7 @@ GreatBritain <-
   mutate(publish_time = as.POSIXct(GreatBritain$publish_time))
 ```
 
+  After exploring these data from previous step, we filter out some errors in the data frames to make them tidy.
 
 #Step 5: Data Wrangling 
 ```{r}
@@ -138,6 +146,7 @@ View(Canada)
 View(GreatBritain)
 ```
 
+  We selecte variables that we are interested in; we are going to analyze and find their features in the following steps.
 
 #Step 6: Visualization
 ## US
@@ -152,7 +161,8 @@ US1 %>%
   ggplot(aes(x = reorder(categories, -view), y = view, fill = categories)) +
   geom_bar(stat = "identity") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
-  labs(y = "views in K", x = "Category", title = "The Distrubution of Category in US")
+  labs(y = "views in K", x = "Category", 
+       title = "The Distrubution of Category in US")
 ```
 
 ```{r}
@@ -162,13 +172,18 @@ US1 <-
   filter(categories != "Entertainment")
 ```
 
+  After drawing this graph, we notice that "Music" is a really outstanding category. We decide to take it out of the list because most of people use YouTube to listen to music. In addition, we realize except for "Music", "Entertainment" is too wide to be a variable in this list. "Entertainment" is not a specific type because it could represent other types in this list, such as "Comedy". Therefore, we filter out "Entertainment" from categories.
+
 ```{r}
 US1 %>%
   ggplot() +
   geom_bar(aes(x = categories, y = view, fill = categories), stat = "identity") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
-  labs(y = "Views in K", x = "Category", title = "The Distrubution of Category in US")
+  labs(y = "Views in K", x = "Category", 
+       title = "The Distrubution of Category in US")
 ```  
+
+  In this graph, we discover there are three categories of videos have most views in the US. They are "How to & Style", "Comedy", "Film & Animation". As the graph shows, there are also some categories have least views, which are "Travel & Events", "Gaming", "Autos & Vehicles", "Pets & Animals". 
 
 ## Canada
 ```{r}
@@ -185,9 +200,11 @@ Canada1 %>%
   ggplot(aes(x = view, y = categories, color = categories, size = like)) +
   geom_point() +
   scale_size(range = c(1, 10), name = "Like in Hundred") +
-  theme(legend.position = "right") +
-  labs(x = "View in k", y = "Category", title = "The Distrubution of Category in Canada")
+  labs(x = "View in K", y = "Category", 
+       title = "The Distrubution of Category in Canada")
 ```
+
+  This graph indicates people in Canada enjoy "Comedy", plus "People & Blogs" is also a popular category. There is an extreme outlier in "How to & Style", which has the most views. Overall, "Comedy" and "How to & Style" have the most potential and steady videos which have more views and likes than other types' videos. However, the category "Shorts" contains only one video which is pretty fun to explore.
 
 ## Great Britian
 ```{r}
@@ -198,6 +215,8 @@ GreatBritain1 <-
   arrange(desc(views)) %>%
   head(120)
 ``` 
+
+  We know that there are about 4000 cases in GreatBritain, and othere two are about 120 cases. It will be difficult for us to analyze with so many cases, so we decided to take some out. Since we filter out "Entertainment" and "Music" in previous data fram, there is no reason we keep these two categories in this data fram. We also arrange the order and pick the first 120 based on most views.
 
 ```{r}
 GreatBritain1 <-
@@ -215,11 +234,8 @@ GreatBritain1 %>%
        title = "The Distrubution of Category in Great Britain") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
-*
 
-Here are my comments
-
-
+  We graph a box plot to explore the relationship between "Category" and "Views" in GreatBretain. First, the category "Sicence & Technology" has the largest range and it is the most common tags that people watch. "Comedy" has an outlier which may get more than 12500k views even though the range of this category is pretty small. Compare to the US, "Film & Animation" is not really popular in the UK. Similarly, onece again "Travel & Envents" is the least popular type.
 
 ## All Three Countries
 ```{r}
@@ -228,6 +244,8 @@ All0 <-
 
 View(All0)
 ```
+
+In this part, we combine three data frames together from different countries. 
 
 ```{r}
 All0 <-
@@ -249,9 +267,12 @@ avgAll %>%
   geom_point(data = US1, aes(x = categories, y = likes)) + 
   geom_line(data = Canada1, aes(x = categories, y = likes)) +
   ylim(0, 320000) +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
-  labs(x = "Category", y = "AvgView in K", title = "The Distrubtuion of Average Views")
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
+  labs(x = "Category", y = "AvgView in K", 
+       title = "The Distrubtuion of Average Views")
 ```
+
+  As we can see from this graph, the bar chart represents data from all three countries, points represent data from US and lines represent data from Canada. Without any doubt, the category "Comedy" is the most trending types in both Canada and the US. What's more, the category "Science & Technology" has the most views in the three countries data source, but it is not significant in the data from the US and Canada. From here, we could imply and ensure that this type must be popular in the data from the UK. Another interesting spot that we have found is when we look at the category "Gaming", apparently it has many views in Canada but much less views in the US.
 
 ##Engagement
 ```{r}
@@ -282,15 +303,35 @@ percentage <-
   arrange(desc(dislikep))
 ```
 
+  Here we combine all the data from three countries to analyze the calculate the percentage of "likes", "dislikes" and "comment_count" in the whole engagement. By this way, we could know how the users would like to react to these videos by whic category: like, dislike or make a comment.
+
 ```{r}
 plot<-
   percentage %>%
-  gather(key = dislikes1, value = per_engage, dislikep, likep, commentp)
+  gather(key = engagetype, value = per_engage, dislikep, likep, commentp)
 ```
 
 ```{r}
 plot %>%
-  ggplot(aes(publish_time, per_engage, color = dislikes1)) +
+  ggplot(aes(publish_time, per_engage, color = engagetype, fill = engagetype),stat = "identity") +
   geom_point(alpha = 0.9) +
-  theme(legend.position = "none")
+  theme(legend.position = "right")
 ```
+
+  We create a scatterplot between the "publish_time" variable and each engagement type percentage. As we can see, the red dots represent the comment percentage, the green dots represents the dislike percentage and the blue dots represent the like percentage. Youtube users engage a lot at the time between Nov.6th 2017 and Nov.13th 2017. Moreover, the percentage of like is tend to be much higher than the other two engage types. On the other hand, the percentage of dislike is tend to be lower than others which indicates that in these trending videos, there is a higher probability for users to like these videos by clicking the "like" button. 
+
+#Conclusion
+  Overall, we found that the popular videos differ in categories in different countries and there are lots of elements that will make these videos popular. Here we explore it by finding the relationship among these elements: categories of trending videos, types of engagement type(like,dislike and comment) and their total counts, YouTube users from three different countries and publish time of videos.
+  First, we make different types of plots for each country to know the most trending category videos in different countries. For US, the most popular category videos are "Howto & Style" and "Comedy". For UK, the most popular category videos is "Science & Technology". For Canada, the most popular category videos are "Comedy" and "People & Blogs". It is interesting because users from different countries like different kinds of videos. We may attributes this to different culture and religious. What'more, we could also indicates some typical characteristic of people in these three different countries. 
+  Another thing we've explored is to find which country of users make the most contributions to those trending videos for each category. For example, in the category of "Comedy", the US and Canada has the largest average number for "views" which implies that users in the US and Canada contributes most to make "Comedy" the most popular catrgories. 
+  Finally, we explore how these users like to engage by like, dislike or making comments for these trending videos. The result shows users are more likely to "like" these popular videos which indicates that the count of "likes" will make a video more popular and trending.
+  
+
+
+
+
+
+
+
+
+
