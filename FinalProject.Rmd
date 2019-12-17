@@ -5,7 +5,7 @@ date: 12-16-2019
 output: html_notebook
 ---
 
-#Introduction
+#Introduction 
   YouTube is the most popular and most used video platform in the whole world today. Here we are going to get the trending statistics by analyzing the YouTube Trending datasets which are collected from three English-Speaking countries: the US, the UK and Canada.
   Our research question is to explore those trending videos among those three countries. Our goal is to find what kinds of videos are the most popular in different countries, what makes them popular, what are the similarities and difference between those videos and the how do the YouTube users would like to engage in which category(like, dislike and comment).
 ![](https://d1afx9quaogywf.cloudfront.net/sites/default/files/Logos/YouTube.png)
