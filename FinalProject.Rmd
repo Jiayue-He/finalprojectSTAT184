@@ -215,6 +215,11 @@ GreatBritain1 %>%
        title = "The Distrubution of Category in Great Britain") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
+*
+
+Here are my comments
+
+
 
 ## All Three Countries
 ```{r}
