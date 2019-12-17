@@ -229,7 +229,7 @@ GreatBritain1 %>%
   ggplot(aes(y = view, x = categories)) +
   geom_boxplot(aes(color = categories, fill = categories), alpha = 0.25, 
                outlier.size = 2, outlier.colour = "black") +
-  ylim(0, 13000) +
+  ylim(0, 13000) + 
   labs(x = "Category", y = "Views in K", 
        title = "The Distrubution of Category in Great Britain") +
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
