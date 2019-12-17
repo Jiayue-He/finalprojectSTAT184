@@ -306,7 +306,7 @@ percentage <-
   Here we combine all the data from three countries to analyze the calculate the percentage of "likes", "dislikes" and "comment_count" in the whole engagement. By this way, we could know how the users would like to react to these videos by whic category: like, dislike or make a comment.
 
 ```{r}
-plot<-
+plot<- 
   percentage %>% 
   gather(key = engagetype, value = per_engage, dislikep, likep, commentp)
 ```
