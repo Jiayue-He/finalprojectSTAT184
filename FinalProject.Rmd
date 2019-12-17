@@ -307,7 +307,7 @@ percentage <-
 
 ```{r}
 plot<-
-  percentage %>%
+  percentage %>% 
   gather(key = engagetype, value = per_engage, dislikep, likep, commentp)
 ```
 
